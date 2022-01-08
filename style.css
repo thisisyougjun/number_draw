@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    text-decoration: none;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body{
+    background-color: #6c63a8;
+}
+
+.text{
+    color: black;
+    font-size: 50px;
+}
+
+#randForm{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -->
+}
+
+.input_form{
+    width: 800px;
+    height: 400px;
+    background-color: #e0e0ff;
+    border: 4px black solid;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+}
+
+.number{
+    display: flex;
+    justify-content:center;
+}
+
+.input_number{
+    width: 35vw;
+    height: 10vh;
+    font-size: 30px;
+    border: black 2px solid;
+    display: flex;
+    text-align: center;
+}
