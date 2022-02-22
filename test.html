@@ -1,192 +1,42 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="random,generator,lotto,무작위,랜덤,추첨,로또,추출,행운,숫자,정수,나눔,범위,중복,제비뽑기,뽑기,주사위,난수" />
-    <title>무작위 번호 추출기</title>
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        @import url('//fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Gothic+Coding&family=Nanum+Brush+Script&display=swap');
-        body {
-            font: normal normal normal x-large/1.3em 'Nanum Gothic',sans-serif;
-            text-shadow:3px 3px 4px lightgray;
-        }
-        .mzheader {
-            padding:0px 1em 0px 1em;
-            background-color:#f0f0ff;
-            font: normal normal normal large/1.8em 'Nanum Brush Script','Nanum Gothic',sans-serif;
-            text-shadow:3px 3px 4px cyan;
-            border:3px solid #e0e0ff;
-            border-radius: 3px;
-            word-wrap:break-word;
-        }
-        a { text-decoration:none; }
-        .mztrailer {
-            font: normal normal normal xx-large/1.8em 'Nanum Brush Script','Nanum Gothic',sans-serif;
-            text-shadow:3px 3px 4px cyan;
-            word-wrap:break-word;
-        }
-        #console {
-            margin:1em auto 1em auto;
-            /* padding:4px 5px 4px 5px; */
-            padding:16px 16px 16px 16px;
-            border:0px solid #e7e7e7;
-            border-left:0.5em solid #e7e7e7;
-            border-right:0.5em solid #e7e7e7;
-            border-radius: 8px;
-            color:black;
-            /*background:black url("/background.png") center/cover no-repeat;*/
-            background:#f0f0f0 none center/cover no-repeat;
-            /*opacity:0.85;*/
-            font-family: 'Nanum Gothic Coding',monospace,sans-serif;
-            font-size: xx-large;
-            text-shadow: 0px 0px 4px #ffff0f;
-            word-wrap:break-word;
-            word-break:keep-all;
-        }
-        #rtime {
-            font-size: small;
-            text-shadow:3px 3px 4px lightgray;
-        }
-        h1 {
-            font-weight: bold;
-            font-size: xx-large;
-            font-family: 'Nanum Brush Script',sans-serif;
-        }
-        input[type="number"] {
-            width: 6em;
-            font-size: x-large;
-        }
-        input[type="submit"] {
-            width: 6em;
-            font-weight: bold;
-            font-size: x-large;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
     </style>
-    <script>
-        window.addEventListener('load', init, false);
-
-        function init(){
-            document.getElementById("calcButton").addEventListener("click", drawing, false);
-
-            function drawing(event) {
-                event.preventDefault();
-
-                var startNUM = parseInt(document.getElementById("startNUM").value);
-                var endNUM = parseInt(document.getElementById("endNUM").value);
-                var selectNum = parseInt(document.getElementById("selectNum").value);
-
-                var numArray = new Array;
-                var randomNum;
-
-                var overlappingFlag;
-
-                if(startNUM > endNUM) {
-                    alert("숫자 범위가 뒤바뀐 듯 합니다.");
-
-                    var tempNum = startNUM;
-                    startNUM = endNUM;
-                    endNUM = tempNum;
-                }
-
-                var rangeNum = endNUM + 1 - startNUM;
-                if(rangeNum < selectNum) {
-                    alert("입력된 숫자범위의 경우의 수보다 추출 숫자의 갯수가 커서 추출 숫자의 갯수를 " + rangeNum + "(으)로 제한합니다.");
-                    selectNum = rangeNum;
-                }
-
-                if(selectNum <= 0) {
-                    alert("추출 숫자의 갯수가 충분하지 않습니다. 1이상의 값을 입력해주세요.");
-                }
-                else if(selectNum > 4096) {
-                    alert("추출 숫자의 갯수가 너무 큰 경우 시간이 좀 걸릴 수 있습니다. 기다리시면 언젠가는 결과가 나올겁니다.");
-                }
-                while(selectNum > 0) {
-                    randomNum = Math.floor(Math.random(1) * (endNUM + 1 - startNUM)) + startNUM;
-
-                    overlappingFlag = false;
-                    for(var a in numArray) {
-                        if(numArray[a] == randomNum) {
-                            overlappingFlag = true;
-                            break;
-                        }
-                    }
-                    if(!overlappingFlag) {
-                        numArray.push(randomNum);
-                        selectNum--;
-                    }
-                }
-                var d = new Date();
-                var nowLocaleString = d.toLocaleString();
-                var nowString = d.toString();
-
-                numArray.sort(function (left, right) {
-                    return left - right;
-                });
-
-                document.getElementById("console").innerHTML = "★ 행운의 숫자:<br/><br/>"
-                    + numArray.join(", ")
-                    + "<br/><br/><div id=\"rtime\">&gt; 추첨시각 : "
-                    + nowLocaleString + "<br/>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ " + nowString + " ]</div>";
-            }
-        }
-    </script>
 </head>
 <body>
-<h1><a href="/random.html" target="_top">※ 무작위 번호 추출기 (Random Number Generator) v1.0</a></h1>
-<p title="Randomizes non-overlapping numbers (integers) within the range of numbers entered below.">아래 입력된 숫자 범위 내에서 겹치지 않는 숫자(정수)를 무작위 추출합니다.</p>
-<form name="randomNumber">
-    <p>
-        숫자범위 (Range): <input type="number" size="6" id="startNUM" value="1" title="시작 값 (Begin)"/> ~ <input type="number" size="6" id="endNUM" value="45" title="끝 값 (End)" />
-    </p>
-    <p>
-        추출 숫자의 갯수 (Count): <input type="number" size="6" id="selectNum" value="6" title="추출 숫자가 너무 큰 경우 오래 기다려야 할 수 있습니다." />
-        <input type="submit" id="calcButton" value="추첨하기" title="누르면 추첨합니다. (Submit)" />
-    </p>
-</form>
-<div id="console" title="추첨하기를 누르면 여기에 결과가 나와요. (Result)">★</div>
-<hr>
-<div class="mztrailer" align="right">
-    Powered by <a target="_top" href="https://www.minzkn.com/" title="만든이의 홈페이지입니다. (Powered by)">MINZKN.COM</a>
-</div>
-<!-- BEGIN: Google adsense -->
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2110881342960271" crossorigin="anonymous"></script>
-<!-- END: Google adsense -->
-<!-- BEGIN: Google adsense - 광고 하나 보고 가실께요~ ㅋㅋ -->
-<!-- 직사각형 광고 -->
-<div align="center">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-2110881342960271"
-         data-ad-slot="5704346399"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
-<!-- END: Google adsense -->
-<!-- BEGIN: Google analytics -->
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="//www.googletagmanager.com/gtag/js?id=UA-71446535-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
-    gtag('config', 'UA-71446535-1');
-</script>
-<!-- END: Google analytics -->
+<p class="tes">sada</p>
+
+
 </body>
+<script>
+    const test1=document.querySelector('.tes');
+
+    function btnClick(){
+        test1.innerText='1';
+    }
+
+    test1.addEventListener('click',btnClick);
+
+    const a = {
+       name:"asd",
+        age:1
+    }
+
+    const test2 =Object.keys(a)
+    const test3 =Object.values(a)
+    console.log(a)
+    console.log(test2[0])
+    console.log(test2[1])
+    console.log(test3[0])
+    console.log(test3[1])
+    console.log(test2[0]+':'+test3[0])
+    console.log(test2[1]+':'+test3[1])
+    console.log(a.name)
+</script>
 </html>
-
-<!--
-
-Copyright (C) JaeHyuk Cho <minzkn@minzkn.com>
-All rights reserved.
-
-http://www.minzkn.com/
-
-original : http://www.minzkn.com/random.html
-
-    -->
