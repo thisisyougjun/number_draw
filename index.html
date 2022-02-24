@@ -4,28 +4,49 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="style.css">
+    <script src="jQuery/jquery-3.6.0.min.js"></script>
+    <script>
+        $("#file").on('change',function(){
+            const fileName = $("#file").val();
+            $(".upload-name").val(fileName);
+        });
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700;900&display=swap');
+
     </style>
 </head>
 <body>
     <form id="randForm">
         <div class="input_form">
-            <p class="title">드로우</p>
+            <div class="numBox">
+        d
+            </div>
+            <div class="title">
+            <p>래플 추첨</p>
+                </div>
+            <div align="center">
+            <hr>
+            </div>
             <p class="text">엑셀 파일을 첨부해주세요!</p>
             <div class="filebox">
                 <label for="file">파일찾기</label>
-                <input type="file" id="file" accept=".xlsx" onchange="readExcel()">
+                <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+
+                <input type="file" id="file" onchange="readExcel()">
             </div>
-            <input type="submit">
+            <div>
+            <input type="button" value="추첨" class="DrawBtn" >
+            </div>
             <div>
                 <p class="winner_num"> </p>
                 <p class="winner_name"> </p>
+                <p class="winner_insta"> </p>
+                <p class="winner_size"> </p>
             </div>
         </div>
     </form>
-
-
+    </a>
     <script src="main.js">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
