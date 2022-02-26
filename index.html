@@ -5,51 +5,63 @@
     <title>Title</title>
     <link rel="stylesheet" href="style.css">
     <script src="jQuery/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
     <script>
-        $("#file").on('change',function(){
-            const fileName = $("#file").val();
-            $(".upload-name").val(fileName);
+        $(document).ready(function(){
+            var fileTarget = $('.filebox .upload-hidden');
+            fileTarget.on('change', function(){ // 값이 변경되면
+                 if(window.FileReader){ // modern browser
+                     var filename = $(this)[0].files[0].name;
+                 }
+                 else { // old IE
+                      var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+                      } // 추출한 파일명 삽입
+                 $(this).siblings('.upload-name').val(filename);
+            });
         });
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700;900&display=swap');
-
     </style>
 </head>
 <body>
     <form id="randForm">
         <div class="input_form">
-            <div class="numBox">
-        d
+            <div class="numBox" >
+
             </div>
+            <div class="DrawBox">
             <div class="title">
-            <p>래플 추첨</p>
+            <p>슈프라이즈 라플</p>
                 </div>
             <div align="center">
             <hr>
             </div>
-            <p class="text">엑셀 파일을 첨부해주세요!</p>
+            <p class="text">엑셀 파일을 선택해주세요!</p>
+            <div class="filebox_par">
             <div class="filebox">
-                <label for="file">파일찾기</label>
+                <label for="file">파일선택</label>
+                <div class="vl"></div>
                 <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+                <input type="file" id="file" class="upload-hidden" onchange="readExcel()">
+            </div>
 
-                <input type="file" id="file" onchange="readExcel()">
+                    <input class="DrawBtn" type="button" value="추첨">
+
             </div>
-            <div>
-            <input type="button" value="추첨" class="DrawBtn" >
-            </div>
-            <div>
-                <p class="winner_num"> </p>
-                <p class="winner_name"> </p>
-                <p class="winner_insta"> </p>
-                <p class="winner_size"> </p>
+            <div class="winnerImp_div">
+                <p id="winner_num" class="WinnerImp"> </p>
+                <p id="winner_name" class="WinnerImp"> </p>
+                <p id="winner_insta" class="WinnerImp"> </p>
+                <p id="winner_size" class="WinnerImp"> </p>
             </div>
         </div>
+        </div>
     </form>
-    </a>
     <script src="main.js">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.5/xlsx.full.min.js"></script>
 </body>
+<footer>
 
+</footer>
 </html>
